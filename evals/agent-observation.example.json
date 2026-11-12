@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "case_id": "replace-case-id",
+  "trial_id": "replace-trial-id",
+  "corpus_commit": "replace-commit",
+  "agent": {"model": "replace-model", "prompt_version": "replace-version", "tools_version": "replace-version"},
+  "query": "实际问题",
+  "evidence": [{"document_id": "replace-id", "content_sha256": "replace-hash", "returned_text": "实际返回的证据，不能只填文件名"}],
+  "answer": "实际回答",
+  "judgment": {"evidence_complete": null, "answer_correct": null, "reviewer": null, "reason": null},
+  "usage": {"elapsed_ms": null, "input_tokens": null, "output_tokens": null},
+  "status": "example_not_evaluated"
+}

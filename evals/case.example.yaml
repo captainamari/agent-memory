@@ -1,0 +1,19 @@
+schema_version: 1
+suite_kind: user
+cases:
+  - id: replace-with-real-failure
+    status: candidate
+    query: "用户实际提出的问题"
+    domain: replace-domain
+    required_ids: [replace-document-id]
+    any_of: []
+    forbidden_ids: []
+    expect_no_results: false
+    top_k: 5
+    include_archived: false
+    include_spec: false
+    cross_domain_related: false
+    answer_requirements: ["回答必须保留的条件"]
+    forbidden_claims: ["不得得出的错误结论"]
+    origin: "真实漏查记录或用户反馈"
+    note: "示例占位，不执行，不代表已有质量数据"

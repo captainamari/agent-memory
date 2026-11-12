@@ -1,0 +1,78 @@
+# Fictional data only. Not a production knowledge source.
+documents:
+  - id: demo-retry-rule
+    path: domains/parcels/2-rules/retry.md
+    title: 虚构包裹查询的重试约束
+    summary: 回执查询超时先核实原请求，重试沿用同一请求键。
+    type: rule
+    domain: parcels
+    category: 2-rules
+    aliases: [重复请求, 幂等约束]
+    body: |
+      ## 约束
+      本演示的回执查询超时后，先核实原请求状态。不得把超时当作不存在，也不得重新创建包裹。重试沿用原请求键。
+  - id: demo-timeout-runbook
+    path: domains/parcels/4-runbooks/timeout.md
+    title: 回执查询超时排查
+    summary: 定位虚构包裹回执查询超时并检查请求键。
+    type: runbook
+    domain: parcels
+    category: 4-runbooks
+    aliases: [回执查询超时, 回执一直查不到]
+    related: [demo-retry-rule]
+    body: |
+      ## 排查步骤
+      查原请求状态，再检查查询链路。是否重试必须遵守 [重试规则](memory:demo-retry-rule#约束)。这是虚构示例，不对应真实服务。
+  - id: demo-query-interface
+    path: domains/parcels/7-interfaces/QueryParcelStatus.md
+    title: 查询包裹回执接口
+    summary: 用虚构请求键查询包裹回执状态。
+    type: interface
+    domain: parcels
+    category: 7-interfaces
+    aliases: [查包裹状态]
+    symbols: [QueryParcelStatus]
+    related: [demo-retry-rule]
+    body: |
+      ## 接口
+      输入 request_key，输出 pending 或 acknowledged。该接口仅用于知识库演示，没有可调用服务。
+  - id: demo-garden-rule
+    path: domains/garden/2-rules/watering.md
+    title: 虚构温室浇水观察
+    summary: 湿度读数异常时先复核传感器。
+    type: rule
+    domain: garden
+    category: 2-rules
+    body: |
+      ## 规则
+      本演示要求先复核湿度读数，不凭单次异常决定浇水。
+  - id: demo-old-rule
+    path: archive/parcels/old-rule.md
+    title: 旧版回执查询方法
+    summary: 已停用的虚构流程，仅供历史查询。
+    type: rule
+    domain: parcels
+    status: archived
+    body: |
+      ## 历史
+      本示例已停用。历史标识 OLD_PARCEL_POLICY 不用于当前处理。
+  - id: demo-candidate
+    path: inbox/candidate.md
+    title: 待核对的包裹处理建议
+    summary: 未确认候选，不能用于普通问答。
+    type: rule
+    domain: parcels
+    category: 2-rules
+    status: candidate
+    body: |
+      ## 待核对
+      CANDIDATE_ONLY 是尚未确认的测试资料。
+  - id: demo-global
+    path: global/response.md
+    title: 演示回答偏好
+    summary: 说明当前结论的适用范围。
+    type: rule
+    domain: null
+    body: |
+      ## 偏好
+      回答时说明适用范围。这是演示用户的偏好。

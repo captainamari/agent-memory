@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.memory.lock
+.memory-write-*
+recall-lab/runs/
+recall-lab/data/
+evals/runs/
+.coverage
+.DS_Store

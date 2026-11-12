@@ -1,0 +1,39 @@
+name: Knowledge checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11', '3.12']
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Validate corpus and index
+        run: |
+          python tools/check_memory.py --strict
+          python tools/build_index.py --check
+      - name: Test maintenance and retrieval
+        run: python -m unittest discover -s tests -v
+      - name: Exercise isolated demo
+        run: python tools/demo.py
+      - name: Evaluate user cases
+        run: python tools/eval_recall.py --suite evals/cases/user.yaml

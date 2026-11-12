@@ -1,0 +1,43 @@
+schema_version: 1
+suite_kind: synthetic
+cases:
+  - id: exact-symbol
+    status: confirmed
+    query: QueryParcelStatus
+    domain: parcels
+    top_k: 1
+    required_ids: [demo-query-interface, demo-retry-rule]
+    forbidden_ids: [demo-candidate, demo-old-rule]
+  - id: scenario-and-condition
+    status: confirmed
+    query: 回执查询超时
+    domain: parcels
+    top_k: 1
+    required_ids: [demo-timeout-runbook, demo-retry-rule]
+  - id: candidate-excluded
+    status: confirmed
+    query: CANDIDATE_ONLY
+    domain: parcels
+    expect_no_results: true
+    forbidden_ids: [demo-candidate]
+  - id: history-excluded
+    status: confirmed
+    query: OLD_PARCEL_POLICY
+    domain: parcels
+    expect_no_results: true
+    forbidden_ids: [demo-old-rule]
+  - id: explicit-history
+    status: confirmed
+    query: OLD_PARCEL_POLICY
+    domain: parcels
+    include_archived: true
+    required_ids: [demo-old-rule]
+  - id: wrong-domain
+    status: confirmed
+    query: QueryParcelStatus
+    domain: garden
+    expect_no_results: true
+  - id: no-answer
+    status: confirmed
+    query: ZXQUNRECOGNIZED9921
+    expect_no_results: true
