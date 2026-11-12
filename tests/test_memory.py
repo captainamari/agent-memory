@@ -279,7 +279,9 @@ class MemoryTests(unittest.TestCase):
         before = managed_files(self.root)
         real_replace = ops.os.replace
         def fail_live(src,dst):
-            if Path(dst).is_relative_to(self.root):
+            # Windows temp directories can use an 8.3 alias (RUNNER~1).
+            # The writer resolves its root, so compare canonical paths on both sides.
+            if Path(dst).resolve().is_relative_to(self.root.resolve()):
                 raise OSError('simulated disk error')
             return real_replace(src,dst)
         with patch.object(ops.os,'replace',side_effect=fail_live):
